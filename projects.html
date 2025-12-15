@@ -8,11 +8,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="icon" href="https://avatars.githubusercontent.com/u/189886215?s=400&u=fa7f3aa0971579fc2fb5ab324d1fc67b05d41c4a&v=4" type="image/x-icon">
     
     <style>
-        body { background-color: #000000; color: #f3f3f3; font-family: 'Inter', sans-serif; }
+        body { background-color: #000000; color: #f3f3f3; font-family: 'Orbitron', sans-serif; }
         .text-gold { color: #FFD700; }
         .bg-dark-card { background-color: #111111; }
         .border-gold { border-color: #FFD700; }
@@ -26,6 +26,20 @@
         .dock-button:hover {
             transform: scale(1.2) translateY(-8px);
             box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border: 2px solid #FFD700;
+            background-color: rgba(255, 215, 0, 0.1);
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #FFD700;
         }
     </style>
 </head>
@@ -53,7 +67,10 @@
                 <h1 class="text-3xl font-bold text-gold mb-10 text-center">My Projects</h1>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-dark-card p-6 rounded-lg border border-gray-800 flex flex-col transition-all duration-300 hover:border-gold">
-                        <h3 class="text-xl font-bold text-gold mb-2">MerlinArch-OS</h3>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="category-badge rounded">OS</div>
+                            <h3 class="text-xl font-bold text-gold">MerlinArch-OS</h3>
+                        </div>
                         <p class="text-gray-400 text-sm mb-4 flex-grow">I am developing MerlinArch, an Arch-based OS that combines Arch Linux's rolling-release base with curated defaults, automated installer tooling, and preconfigured desktop/user-experience improvements to reduce setup time while preserving Arch's flexibility and control.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">Linux</span>
@@ -66,7 +83,10 @@
                         </div>
                     </div>
                     <div class="bg-dark-card p-6 rounded-lg border border-gray-800 flex flex-col transition-all duration-300 hover:border-gold">
-                        <h3 class="text-xl font-bold text-gold mb-2">Game Engine Spark</h3>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="category-badge rounded">GE</div>
+                            <h3 class="text-xl font-bold text-gold">Game Engine Spark</h3>
+                        </div>
                         <p class="text-gray-400 text-sm mb-4 flex-grow">A 2D game engine created from scratch using Java and LWJGL, featuring a simple physics system and sprite animation.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">Java</span>
