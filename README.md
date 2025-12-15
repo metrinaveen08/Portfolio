@@ -1,5 +1,5 @@
 # HTML Portfolio Website
-
+<img width="1800" height="939" alt="Image" src="https://github.com/user-attachments/assets/44136908-cc71-4317-a85d-e4fcfe43d1d6" />
 A modern, responsive personal portfolio website built with HTML, CSS (Tailwind CSS), and JavaScript. This portfolio showcases projects, writing, and professional information with a sleek dark/light theme toggle.
 
 ## 🌟 Features
