@@ -1,4 +1,4 @@
-#HTML Portfolio Website
+# HTML Portfolio Website
 
 A modern, responsive personal portfolio website built with HTML, CSS (Tailwind CSS), and JavaScript. This portfolio showcases projects, writing, and professional information with a sleek dark/light theme toggle.
 
