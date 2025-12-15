@@ -17,6 +17,16 @@
         .bg-dark-card { background-color: #111111; }
         .border-gold { border-color: #FFD700; }
         .hover\:border-gold:hover { border-color: #FFD700; }
+        
+        .dock-button {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center;
+        }
+        
+        .dock-button:hover {
+            transform: scale(1.2) translateY(-8px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -27,7 +37,8 @@
             <nav class="flex items-center gap-4 md:gap-6">
                 <a href="about.html" class="text-sm hover:text-gold transition-colors">About</a>
                 <a href="projects.html" class="text-sm text-gold font-bold transition-colors">Projects</a>
-                <a href="writing.html" class="text-sm hover:text-gold transition-colors">Writing</a> <a href="certifications.html" class="text-sm hover:text-gold transition-colors">Certifications</a>
+                <a href="writing.html" class="text-sm hover:text-gold transition-colors">Writing</a>
+                <a href="certifications.html" class="text-sm hover:text-gold transition-colors">Certifications</a>
                 <div class="flex items-center gap-3 md:gap-4 ml-2 border-l border-gray-700 pl-4">
                     <a href="https://github.com/metrinaveen08" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
                     <a href="https://linkedin.com/in/metri-naveen-kumar" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
@@ -43,19 +54,18 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="bg-dark-card p-6 rounded-lg border border-gray-800 flex flex-col transition-all duration-300 hover:border-gold">
                         <h3 class="text-xl font-bold text-gold mb-2">MerlinArch-OS</h3>
-                        <p class="text-gray-400 text-sm mb-4 flex-grow">I am developing MerlinArch, an Arch-based OS that combines Arch Linux’s rolling-release base with curated defaults, automated installer tooling, and preconfigured desktop/user-experience improvements to reduce setup time while preserving Arch’s flexibility and control. </p>
+                        <p class="text-gray-400 text-sm mb-4 flex-grow">I am developing MerlinArch, an Arch-based OS that combines Arch Linux's rolling-release base with curated defaults, automated installer tooling, and preconfigured desktop/user-experience improvements to reduce setup time while preserving Arch's flexibility and control.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">Linux</span>
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">QML</span>
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">ArchIso</span>
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">Python</span>
                         </div>
-                        <div class="mt-auto flex gap-4">
-                            <a href="#" class="text-sm text-gold hover:underline font-semibold">Active Repository</a>
-                            <a href="https://github.com/metrinaveen08/MerlinArch-OS" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:underline font-semibold">View Code</a>
+                        <div class="mt-auto">
+                            <a href="https://github.com/metrinaveen08/MerlinArch-OS" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-2.5 text-black font-semibold text-sm rounded-lg dock-button" style="background-color: #FF6B35;">View Repository</a>
                         </div>
                     </div>
-                     <div class="bg-dark-card p-6 rounded-lg border border-gray-800 flex flex-col transition-all duration-300 hover:border-gold">
+                    <div class="bg-dark-card p-6 rounded-lg border border-gray-800 flex flex-col transition-all duration-300 hover:border-gold">
                         <h3 class="text-xl font-bold text-gold mb-2">Game Engine Spark</h3>
                         <p class="text-gray-400 text-sm mb-4 flex-grow">A 2D game engine created from scratch using Java and LWJGL, featuring a simple physics system and sprite animation.</p>
                         <div class="flex flex-wrap gap-2 mb-4">
@@ -63,8 +73,8 @@
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">LWJGL</span>
                             <span class="bg-gray-800 text-gold text-xs font-medium px-2.5 py-1 rounded-full">OpenGL</span>
                         </div>
-                        <div class="mt-auto flex gap-4">
-                            <a href="https://github.com/metrinaveen08/spark.git" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:underline font-semibold">View Code</a>
+                        <div class="mt-auto">
+                            <a href="https://github.com/metrinaveen08/spark.git" target="_blank" rel="noopener noreferrer" class="inline-block px-6 py-2.5 text-black font-semibold text-sm rounded-lg dock-button" style="background-color: #FF6B35;">View Repository</a>
                         </div>
                     </div>
                 </div>
