@@ -103,10 +103,21 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
         }
+
+        #spark-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
     </style>
 </head>
 
 <body class="antialiased light-mode">
+<canvas id="spark-canvas"></canvas>
 
 <div class="min-h-screen flex flex-col items-center">
 
@@ -127,7 +138,7 @@
         <div class="flex items-center gap-3 md:gap-4 ml-2 border-l border-gray-700 pl-4">
             <a href="https://github.com/metrinaveen08" target="_blank" rel="noopener noreferrer" class="hover:text-gold transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77A5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                 </svg>
             </a>
 
@@ -174,7 +185,7 @@
                     <div class="text-notebook text-lg space-y-4">
                         <p>
                             Pen Name: Xenon άkro
-                            I’m a technologist driven by curiosity—someone who enjoys
+                            I'm a technologist driven by curiosity—someone who enjoys
                             building systems, understanding how they break, and making
                             them stronger.
                         </p>
@@ -212,11 +223,118 @@
 </div>
 
 <script>
+// ClickSpark implementation
+class ClickSpark {
+    constructor(options = {}) {
+        this.sparkColor = options.sparkColor || '#FFD700';
+        this.sparkSize = options.sparkSize || 10;
+        this.sparkRadius = options.sparkRadius || 15;
+        this.sparkCount = options.sparkCount || 8;
+        this.duration = options.duration || 400;
+        this.easing = options.easing || 'ease-out';
+        this.extraScale = options.extraScale || 1.0;
+        
+        this.canvas = document.getElementById('spark-canvas');
+        this.ctx = this.canvas.getContext('2d');
+        this.sparks = [];
+        this.animationId = null;
+        
+        this.init();
+    }
+    
+    init() {
+        this.resizeCanvas();
+        window.addEventListener('resize', () => this.resizeCanvas());
+        document.addEventListener('click', (e) => this.handleClick(e));
+        this.animate();
+    }
+    
+    resizeCanvas() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+    
+    easeFunc(t) {
+        switch (this.easing) {
+            case 'linear':
+                return t;
+            case 'ease-in':
+                return t * t;
+            case 'ease-in-out':
+                return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            default:
+                return t * (2 - t);
+        }
+    }
+    
+    handleClick(e) {
+        const x = e.clientX;
+        const y = e.clientY;
+        const now = performance.now();
+        
+        const newSparks = Array.from({ length: this.sparkCount }, (_, i) => ({
+            x,
+            y,
+            angle: (2 * Math.PI * i) / this.sparkCount,
+            startTime: now
+        }));
+        
+        this.sparks.push(...newSparks);
+    }
+    
+    animate(timestamp) {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        this.sparks = this.sparks.filter(spark => {
+            const elapsed = timestamp - spark.startTime;
+            if (elapsed >= this.duration) {
+                return false;
+            }
+            
+            const progress = elapsed / this.duration;
+            const eased = this.easeFunc(progress);
+            const distance = eased * this.sparkRadius * this.extraScale;
+            const lineLength = this.sparkSize * (1 - eased);
+            
+            const x1 = spark.x + distance * Math.cos(spark.angle);
+            const y1 = spark.y + distance * Math.sin(spark.angle);
+            const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+            const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+            
+            this.ctx.strokeStyle = this.sparkColor;
+            this.ctx.lineWidth = 2;
+            this.ctx.beginPath();
+            this.ctx.moveTo(x1, y1);
+            this.ctx.lineTo(x2, y2);
+            this.ctx.stroke();
+            
+            return true;
+        });
+        
+        this.animationId = requestAnimationFrame((ts) => this.animate(ts));
+    }
+}
+
+// Initialize ClickSpark
+const clickSpark = new ClickSpark({
+    sparkColor: '#d4a500',
+    sparkSize: 12,
+    sparkRadius: 20,
+    sparkCount: 8,
+    duration: 500,
+    easing: 'ease-out',
+    extraScale: 1.2
+});
+
 function toggleTheme() {
     const body = document.body;
     const slider = document.querySelector('.theme-toggle-slider');
     body.classList.toggle('light-mode');
     slider.textContent = body.classList.contains('light-mode') ? '☀️' : '🌙';
+    
+    // Update spark color based on theme
+    const isDark = !body.classList.contains('light-mode');
+    clickSpark.sparkColor = isDark ? '#FFD700' : '#d4a500';
 }
 </script>
 
